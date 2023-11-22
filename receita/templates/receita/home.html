@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+
+
+<!--    Página para a página do usuario            -->
+
+{%block 'conteudo'%}
+
+
+<br>
+
+
+<div class="container">
+    <br>
+    {%if status_categoria == '1'%}
+      <div class="alert alert-success" role="alert">
+        Categoria cadastrada com sucesso
+      </div>
+    {%endif%}
+
+
+
+    <div class="row">
+
+      
+        {% for receita in receitas%}
+            <div class="col-md">
+                <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+
+                      <h5 class="card-title">{{receita.nome}}</h5>
+                      <p class="card-text"> {{receita.ingredientes}}</p>
+                      <p class="card-text">{{receita.categoria}}</p>
+                 
+                        <br>
+                        <br>
+                      <a href="{% url 'detalhe' receita.id%}" class="btn btn-info">Acessar</a>
+                    </div>
+
+                </div>
+                <br>
+            </div>
+           
+           
+    
+        {% endfor %}
+</div>
+
+{% endblock %}

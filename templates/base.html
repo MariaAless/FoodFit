@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    {% block 'head' %} {% endblock %}
+
+    <title>{% block 'titulo' %} {% endblock %}</title>
+
+
+  </head>
+  <body style="background-color: white">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'home'%}">FoodFIT</a>
+        {% if usuario_logado %} <!-- mostrar o botão sair quando o usuario estiver logado-->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Cadastrar 
+        </button>
+        <a class="btn btn-danger" href="{% url 'sair' %}">Sair</a>
+        {% endif %}
+        
+      </nav>
+    
+
+
+      {% if usuario_logado %} <!-- Se o usuario tiver logado-->
+
+      <!--Modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cadastrar Receita</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                <button style="margin-left: 12px;" onclick="mostrar_form(1)" class="btn btn-info"> Categoria </button>
+                <button  style="margin-left: 12px;" onclick="mostrar_form(2)" class="btn btn-warning">Receita</button>
+                
+                <br>
+                <br>
+               
+                
+                
+                <!-- OPÇÃO DE CADASTRAR A RECEITA-->
+                      <div style='display:none;'id='receita'> 
+                          <form action="{% url 'Cadastrar_Receita' %} " method="POST">
+                            {% csrf_token%} <!-- segurança django-->
+                            <table>
+                              {{form.as_table}} <!--.as_p utilize como paragrafo, o as_table fica como table-->
+                            </table>
+                          
+                            <input type="submit" class="btn btn-success" value="Cadastrar"> 
+                          <!-- 
+                            <ul>
+                            {{form.as_ul}} .as_p utilize como lista não odernada
+                            </ul>
+                          -->
+                          </form>
+                       </div>
+
+                       <!-- OPÇÃO DE CADASTRAR A CATEGORIA-->
+
+                       <div style='display:none;' id='categoria'>
+                        <form action="{% url 'cadastrar_categoria' %}" method="POST">
+                          {% csrf_token %}
+                          <table>
+                            {{form_categoria.as_table}}
+                          </table>
+                          <input type="hidden" name="usuario" value="{{usuario_logado}}">
+                          <input class="btn btn-success" type="submit" value="Cadastrar">
+                        </form>
+                       
+                       </div>
+            
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+
+      
+
+    {% block 'conteudo' %} {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <!--Habitando e desabilitado nas opções-->
+    <script>
+      function mostrar_form(v1){
+        categoria = document.getElementById('categoria')
+        receita = document.getElementById('receita')        
+     
+
+        if(v1 == 1){
+          categoria.style.display = 'block'; /* habilitado*/
+          receita.style.display = 'none'; /* desabilitado*/
+
+        }else if(v1 == 2){
+          receita.style.display = 'block';
+          categoria.style.display = 'none';
+   
+
+       }
+      }
+
+    </script>
+
+     
+
+       
+
+  </body>
+</html>
