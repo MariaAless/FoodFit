@@ -10,5 +10,5 @@ class ReceitaAdmin(admin.ModelAdmin):
 
 @admin.register(Historico)
 class HistoricoAdmin(admin.ModelAdmin):
-    list_display = ('usuario','receita','data')
+    list_display = ('usuario','receita','data','comentario')
 

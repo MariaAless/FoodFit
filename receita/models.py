@@ -40,6 +40,7 @@ class Historico(models.Model):
     usuario=models.ForeignKey(Usuario,on_delete=models.DO_NOTHING, blank=True, null =True)
     receita=models.ForeignKey(Receita,on_delete=models.DO_NOTHING,blank=True, null =True)
     data=models.DateField()
+    comentario=models.TextField()
 
     
     def __str__(self) -> str:

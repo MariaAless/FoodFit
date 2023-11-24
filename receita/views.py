@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from usuarios.models import Usuario
 from .models import Receita, Categoria,Historico
@@ -72,3 +72,24 @@ def cadastrar_categoria(request):
 def Excluir_Receita(request, id):
     receita=Receita.objects.get(id=id).delete()
     return redirect('/receita/home')
+
+
+def listarTodos(request):
+    listReceita = Receita.objects.all()
+    context= {
+         "listReceita" : listReceita
+    }
+
+    return render(request, 'receita/listtodos.html', context)
+
+def detalheLista(request, id):
+    receita=get_object_or_404(Receita, id=id)
+    context={
+       'receita': receita
+     }
+    
+    return render(request, "receita/detalheListatodos.html", context) 
+
+
+
+     
