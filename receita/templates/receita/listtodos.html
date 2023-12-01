@@ -1,43 +1,49 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
+<!-- Página para a página do usuário -->
 
-<!--    Página para a página do usuario            -->
-
-{%block 'conteudo'%}
+{% block 'conteudo' %}
 
 <br>
 <br>
 <br>
-<div class="row">
 
-      
-    {% for i in listReceita%}
-        <div class="col-md">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
+<div class="container">
 
-                  <h5 class="card-title">{{i.nome}}</h5>
-                  <p class="card-text"> {{i.ingredientes}}</p>
-                  <p class="card-text">{{i.categoria}}</p>
-                  <p class="card-text">{{i.usuario}}</p>
-             
-                    <br>
-                    <br>
-                 <a href="{% url 'detalheLista' i.id %}" class="btn btn-info">Acessar</a>
+    <div class="offset-1 col-10 list-div">
+
+        <div class="col-9 search-div">
+            <form method="get" action="{% url 'listarTodos' %}" id="search-form">
+                <div class="input-group">
+                    <input class="form-control" type="text" id="search" name="q" placeholder="Digite o nome da receita para buscar..." value="{{ query }}">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success">Buscar</button>
+                    </div>
                 </div>
-
-            </div>
-            <br>
+            </form>
         </div>
-       
-       
 
-    {% endfor %}
+        <br>
+
+        <div class="row">
+            {% for receita in listReceita %}
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <img width="50%" src="{{ receita.img.url }}" class="card-img-top" alt="{{ receita.nome }}">
+                            <h5 class="card-title">{{ receita.nome }}</h5>
+                            <p class="card-text">{{ receita.ingredientes }}</p>
+                            <p class="card-text">{{ receita.categoria.nome }}</p>
+                            <p class="card-text">{{ receita.usuario.nome }}</p>
+                            <br>
+                            <br>
+                            <a href="{% url 'detalheLista' receita.id %}" class="btn btn-info">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
-{%endblock %}
-
-
-
-
+{% endblock %}
