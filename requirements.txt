@@ -6,3 +6,5 @@ typing_extensions==4.7.1
 tzdata==2023.3
 mypy==1.5.1
 mypy-extensions==1.0.0
+gunicorn==21.1.0
+psycopg2==2.9.9

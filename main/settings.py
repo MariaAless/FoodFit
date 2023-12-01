@@ -24,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-xvnm^6bdwatthyann$h=k+2w*gei6ikjo6an*f_c^1sxygc)0w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:83','http://127.0.0.1']
 
 
 # Application definition
@@ -80,8 +82,12 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'foodfit',
+        'USER': 'postgres',
+        'PASSWORD': 'etal2030',
+        'HOST': 'postgres',
+        'PORT': '5432',
     }
 }
 
@@ -122,7 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_URL = '/static/'
 
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
